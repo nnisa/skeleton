@@ -2,6 +2,8 @@ package dao;
 
 import api.ReceiptResponse;
 import generated.tables.records.ReceiptsRecord;
+import generated.tables.records.TagsRecord;
+import generated.tables.records.ReceiptsTagsRecord;
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkState;
 import static generated.Tables.RECEIPTS;
+import static generated.tables.Tags.TAGS;
 
 public class TagDao {
     DSLContext dsl;
@@ -21,8 +24,8 @@ public class TagDao {
 
     public int insert(String TagName) {
         TagsRecord tagsRecord = dsl
-                .insertInto(TAGS, TAGS.NAME)
-                .values(tagName)
+                .insertInto(TAGS, TAGS.TAGNAME)
+                .values(TagName)
                 .returning(TAGS.ID)
                 .fetchOne();
 
@@ -30,12 +33,11 @@ public class TagDao {
         return tagsRecord.getId();
     }
 
-    public List<TagsRecord> getAllTag() {
-        return dsl.selectFrom(TAGS).fetch();
-    }
-    public Integer getTagIdFromName(String tagName) {
-        return dsl.selectFrom(TAGS)
-                .where(TAGS.NAME.eq(tagName))
+    public Integer TagIdFromName(String tagName) {
+               return dsl.selectFrom(TAGS)
+                .where(TAGS.TAGNAME.eq(tagName))
                 .fetchOne(TAGS.ID);
     }
+
+
 }

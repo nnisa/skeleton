@@ -2,11 +2,15 @@ package dao;
 
 import api.ReceiptResponse;
 import generated.tables.records.ReceiptsRecord;
+import generated.tables.records.ReceiptsTagsRecord;
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
-
+import org.jooq.Record3;
+import org.jooq.Result;
+import java.util.ArrayList;
 import java.math.BigDecimal;
+import static generated.Tables.RECEIPTS_TAGS;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkState;

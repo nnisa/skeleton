@@ -1,5 +1,6 @@
 import controllers.HelloWorldController;
 import controllers.ReceiptController;
+import controllers.TagController;
 import dao.ReceiptDao;
 import dao.TagDao;
 import io.dropwizard.Application;
