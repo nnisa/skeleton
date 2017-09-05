@@ -39,5 +39,4 @@ public class TagDao {
                 .fetchOne(TAGS.ID);
     }
 
-
 }

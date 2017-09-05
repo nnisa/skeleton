@@ -6,6 +6,7 @@ import generated.tables.records.ReceiptsRecord;
 import java.math.BigDecimal;
 import java.sql.Time;
 
+
 /**
  * This is an API Object.  Its purpose is to model the JSON API that we expose.
  * This class is NOT used for storing in the Database.
@@ -20,17 +21,17 @@ public class ReceiptResponse {
     Integer id;
 
     @JsonProperty
-    String merchantName;
+    String merchant;
 
     @JsonProperty
-    BigDecimal value;
+    BigDecimal amount;
 
     @JsonProperty
     Time created;
 
     public ReceiptResponse(ReceiptsRecord dbRecord) {
-        this.merchantName = dbRecord.getMerchant();
-        this.value = dbRecord.getAmount();
+        this.merchant = dbRecord.getMerchant();
+        this.amount = dbRecord.getAmount();
         this.created = dbRecord.getUploaded();
         this.id = dbRecord.getId();
     }

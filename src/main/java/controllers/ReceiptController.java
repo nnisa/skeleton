@@ -34,6 +34,7 @@ public class ReceiptController {
         return receiptRecords.stream().map(ReceiptResponse::new).collect(toList());
     }
 
+
 }
 
 
