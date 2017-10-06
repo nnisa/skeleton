@@ -1,6 +1,6 @@
 package dao;
-
 import api.ReceiptResponse;
+
 import generated.tables.records.ReceiptsRecord;
 import generated.tables.records.TagsRecord;
 import generated.tables.records.ReceiptsTagsRecord;
@@ -40,3 +40,10 @@ public class TagDao {
     }
 
 }
+
+
+
+
+    // public List<TagsRecord> funca() {
+    //     return dsl.select(TAGS.TAGID, TAGS.agname).from(TAGS).fetch();
+    // }

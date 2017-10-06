@@ -4,11 +4,9 @@ import api.ReceiptResponse;
 
 import generated.tables.records.ReceiptsRecord;
 import generated.tables.records.ReceiptsTagsRecord;
-import org.jooq.Configuration;
-import org.jooq.DSLContext;
+import org.jooq.*;
 import org.jooq.impl.DSL;
-import org.jooq.Record3;
-import org.jooq.Result;
+
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
@@ -17,6 +15,7 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkState;
 import static generated.Tables.RECEIPTS;
 import static generated.Tables.RECEIPTS_TAGS;
+import static generated.tables.Tags.TAGS;
 
 
 public class ReceiptDao {
@@ -87,5 +86,18 @@ public class ReceiptDao {
 
         return receiptsRecords;
         }
+
+        public List<String> getTagNamesForReceiptId(Integer receiptId) {
+        Result<Record1<String>> result = dsl.select(TAGS.TAGNAME).from(TAGS)
+                .innerJoin(RECEIPTS_TAGS).on(TAGS.ID.eq(RECEIPTS_TAGS.TAGID))
+                .where(RECEIPTS_TAGS.RECEIPTID.eq(receiptId))
+                .fetch();
+        List<String> tagNames = new ArrayList<>();
+
+            for (Record1 r: result) {
+                tagNames.add((String)r.getValue(0));
+            }
+            return tagNames;
+    }
 }
 

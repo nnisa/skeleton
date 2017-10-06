@@ -1,37 +1,22 @@
 package controllers;
 
 import api.ReceiptResponse;
-import generated.tables.records.ReceiptsRecord;
-import generated.tables.records.ReceiptsTagsRecord;
-
 import dao.ReceiptDao;
 import dao.TagDao;
+import generated.tables.records.ReceiptsRecord;
+import org.jooq.DSLContext;
 
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
+
 import static java.util.stream.Collectors.toList;
 
-import org.jooq.Configuration;
-import org.jooq.DSLContext;
-import javax.ws.rs.core.Response;
-import org.jooq.impl.DSL;
-import org.jooq.Record3;
-import org.jooq.Result;
-import java.util.ArrayList;
-import java.math.BigDecimal;
-
-
-import static com.google.common.base.Preconditions.checkState;
-import static generated.Tables.RECEIPTS;
 
 
 
-
-@Path("/tags/{tag}")
+@Path("")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 
@@ -46,6 +31,7 @@ public class TagController {
 
 
     @PUT
+    @Path("/tags/{tag}")
     public Response toggleTag(@PathParam("tag") String tagName, int receiptId) {
         if (!receipts.ReceiptIdExists(receiptId)) {
             throw new WebApplicationException("receipt id does not exist", Response.Status.NOT_FOUND);
@@ -59,10 +45,12 @@ public class TagController {
     }
 
     @GET
+    @Path("/tags/{tag}")
     public List<ReceiptResponse> getReceipts(@PathParam("tag") String tagName) {
-            Integer tagId = tags.TagIdFromName(tagName);
-            List<ReceiptsRecord> receiptsRecords = receipts.ReceiptsForTag(tagId);
-            return receiptsRecords.stream().map(ReceiptResponse::new).collect(toList());
-        }
+        Integer tagId = tags.TagIdFromName(tagName);
+        List<ReceiptsRecord> receiptsRecords = receipts.ReceiptsForTag(tagId);
+        return receiptsRecords.stream().map(ReceiptResponse::new).collect(toList());
+    }
 
 }
+   

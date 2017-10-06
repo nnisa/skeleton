@@ -22,10 +22,7 @@ CREATE TABLE receipts_tags (
   tagId INT UNSIGNED,
 
   CONSTRAINT receipt_tag_primaryKey PRIMARY KEY (receiptId, tagId),
-
   CONSTRAINT receipt_foreignKey FOREIGN KEY (receiptId) REFERENCES receipts (id),
   CONSTRAINT tag_foreignKey FOREIGN KEY (tagId) REFERENCES tags (id)
 );
 
-select * from receipts;
-select * from tags;

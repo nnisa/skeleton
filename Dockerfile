@@ -13,15 +13,15 @@ ADD build/distributions/skeleton.tar  /
 # add it explicitly
 ADD appconfig.yml /skeleton/
 
-# Add your GCP Service Account API File to the Docker Image
-ADD gc_api_file.json /skeleton/gc_api_file.json
-ENV GOOGLE_APPLICATION_CREDENTIALS=/skeleton/gc_api_file.json
-
-# Convenience if we ever want to log into the image and snoop around
-WORKDIR /skeleton
-
 # The server is runs on 8080 inside the running container, so we need to expose that port
 EXPOSE 8080
 
 # When a new container is created, the server program should be run.
 ENTRYPOINT ["/skeleton/bin/skeleton", "server", "appconfig.yml"]
+
+ADD gc_api_file.json /skeleton/gc_api_file.json
+ENV GOOGLE_APPLICATION_CREDENTIALS=/skeleton/gc_api_file.json
+
+
+# Convenience if we ever want to log into the image and snoop around
+WORKDIR /skeleton

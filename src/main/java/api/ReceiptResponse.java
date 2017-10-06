@@ -5,6 +5,8 @@ import generated.tables.records.ReceiptsRecord;
 
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -17,6 +19,7 @@ import java.sql.Time;
  * annotated with {@link JsonProperty}
  */
 public class ReceiptResponse {
+
     @JsonProperty
     Integer id;
 
@@ -29,10 +32,23 @@ public class ReceiptResponse {
     @JsonProperty
     Time created;
 
+    @JsonProperty
+    List<String> tags;
+
     public ReceiptResponse(ReceiptsRecord dbRecord) {
         this.merchant = dbRecord.getMerchant();
         this.amount = dbRecord.getAmount();
         this.created = dbRecord.getUploaded();
         this.id = dbRecord.getId();
+        this.tags = new ArrayList<>();
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public List<String> getTags() {
+        return tags;
     }
 }
