@@ -65,7 +65,7 @@ public class ReceiptImageController {
                     numberList.add(annotation.getDescription());
                     }
                 if (index == 0){
-                    merchantName = annotation.getDescription();
+                    // merchantName = annotation.get(index).getDescription();
                 }
                 index = index + 1;
 
@@ -73,7 +73,7 @@ public class ReceiptImageController {
                 // out.printf("Text: %s\n", annotation.getDescription());
             }
             Integer numberListLength = numberList.size();
-            Integer index2 = numberListLength -1;
+            Integer index2 = numberListLength-1;
 
             amount = new BigDecimal(numberList.get(index2));
             //TextAnnotation fullTextAnnotation = res.getFullTextAnnotation();
