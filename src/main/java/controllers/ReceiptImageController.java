@@ -65,7 +65,8 @@ public class ReceiptImageController {
                     numberList.add(annotation.getDescription());
                     }
                 if (index == 0){
-                    // merchantName = annotation.get(index).getDescription();
+                    String[] result = annotation.getDescription().split("\n", 2);
+                    merchantName = result[0];
                 }
                 index = index + 1;
 

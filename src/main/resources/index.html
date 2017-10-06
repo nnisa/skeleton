@@ -145,7 +145,7 @@
     function image_input_filled_form(image_merchant, image_amount) {
         document.getElementById('merchant').value = image_merchant;
         document.getElementById('amount').value = image_amount;
-        $('#camera_form').toggle();
+        // $('#camera_form').toggle();
         $('#input_section').toggle();
     }
 
@@ -269,6 +269,7 @@
 
         let imageCapture;
         let track;
+
         function attachMediaStream(mediaStream) {
             $('video')[0].srcObject = mediaStream;
             // Saving the track allows us to capture a photo
@@ -286,6 +287,32 @@
                         })
                 })
         }
+
+
+
+        // function deattachMediaStream(mediaStream) {
+        //     $('video')[0].srcObject = mediaStream;
+        //     // Saving the track allows us to capture a photo
+        //     track = mediaStream.getVideoTracks()[0];
+        //     track.stop();
+        //     // imageCapture = new ImageCapture(track);
+        // }
+        // function stopVideo() {
+        //             $('video').show();
+        //             navigator.mediaDevices.getUserMedia({video: {facingMode: {exact: "environment"}}})
+        //                 .then(deattachMediaStream)
+        //                 .catch(error => {
+        //                     navigator.mediaDevices.getUserMedia({video: true})
+        //                         .then(deattachMediaStream)
+        //                         .catch(error => {
+        //                             console.log('you are fooked at closing the video');
+        //                         })
+        //                 })
+        //         }
+
+
+
+
         function takeSnapshot() {
             // create a CANVAS element that is same size as the image
             imageCapture.grabFrame()
@@ -305,14 +332,17 @@
                         var image_amount = response.amount;
                         image_input_filled_form(image_merchant, image_amount);
                         console.log(image_merchant, image_amount);
+                        $('#camera_form').toggle();
+                        track.stop();
+
                     },
                })
                 .then(response => {
-                    $('video').after(`<div>got response: <pre>${JSON.stringify(response)}</pre></div>`);
+                    $('video').after(``);
                 })
                 .always(() => console.log('request complete'));
                 // For debugging, you can uncomment this to see the frame that was captured
-                // $('BODY').append(canvas);
+                //$('BODY').append(canvas);
             });
         }
         $(function () { 
@@ -320,12 +350,12 @@
 
             $('video').on('play', () => $('#take-pic').prop('disabled', false));
             $('video').on('play', () => $('#take-pic-cancel').prop('disabled', false));
-
             $('#take-pic').on('click', takeSnapshot);
+        });
 
-
-            $('#take-pic-cancel').on('click', () => $('#take-pic').prop('disabled', true));
-            $('#take-pic-cancel').on('click', startVideo = false);
+        $('#take-pic-cancel').click(function(e){        
+            track.stop();
+            $('#camera_form').toggle();
         });
 
 
